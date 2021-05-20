@@ -11,84 +11,39 @@ from kmodes.kmodes import KModes
 import matplotlib.pyplot as plt
 get_ipython().run_line_magic('matplotlib', 'inline')
 
-
-# In[2]:
-
-
-data = pd.read_csv('./ER_F5000_V3.csv',delimiter = ',', encoding = "latin1")
-
-
-# In[3]:
+data = pd.read_csv('filename',delimiter = ',', encoding = "latin1")
 
 
 data.head()
 
-
-# In[4]:
-
-
 data.info()
 
-
-# In[5]:
-
-
 print(data.isnull().sum())
-
-
-# In[6]:
-
 
 data = data.dropna()
 
 
-# In[7]:
-
-
 print(data.isnull().sum())
-
-
-# In[9]:
 
 
 km_cao = KModes(n_clusters=10, init = "Cao", n_init = 3, verbose=1)
 fitClusters_cao = km_cao.fit_predict(data)
 
-
-# In[10]:
-
-
 fitClusters_cao
-
-
-# In[11]:
 
 
 clusterCentroidsDf = pd.DataFrame(km_cao.cluster_centroids_)
 clusterCentroidsDf.columns = data.columns
 
 
-# In[12]:
-
-
 clusterCentroidsDf
-
-
-# In[13]:
 
 
 km_huang = KModes(n_clusters=10, init = "Huang", n_init = 3, verbose=1)
 fitClusters_huang = km_huang.fit_predict(data)
 
 
-# In[14]:
-
-
 fitClusters_huang
-
-
-# In[15]:
-
 
 cost = []
 for num_clusters in list(range(1,11)):
